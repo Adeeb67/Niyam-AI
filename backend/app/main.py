@@ -51,7 +51,7 @@ async def lifespan(_: FastAPI):
         scheduler.shutdown(wait=False)
 
 
-app = FastAPI(title="Niam AI Regulatory Intelligence API", version="1.0.0", lifespan=lifespan)
+app = FastAPI(title="Niyam AI Regulatory Intelligence API", version="1.0.0", lifespan=lifespan)
 allowed_origins = [origin.strip() for origin in os.getenv("CORS_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173").split(",") if origin.strip()]
 app.add_middleware(CORSMiddleware, allow_origins=allowed_origins, allow_credentials=True, allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE"], allow_headers=["*"])
 
@@ -222,7 +222,7 @@ def _ensure_report_pdf(db: Session, analysis_id: int, report: dict) -> Path:
     stored = db.scalar(select(ReportMetadata).where(ReportMetadata.analysis_id == analysis_id))
     if stored and stored.file_path and Path(stored.file_path).is_file():
         return Path(stored.file_path)
-    destination = DATA_DIR / "reports" / f"niam-report-{analysis_id}.pdf"
+    destination = DATA_DIR / "reports" / f"niyam-report-{analysis_id}.pdf"
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_bytes(_report_pdf_bytes(analysis_id, report))
     if not stored:
@@ -625,8 +625,8 @@ def _report_pdf_bytes(analysis_id: int, report: dict) -> bytes:
     pdf = canvas.Canvas(buffer, pagesize=letter)
     _, height = letter
     y = height - 48
-    pdf.setTitle("Niam AI Regulatory Change Report")
-    pdf.setAuthor("Niam AI Regulatory Intelligence")
+    pdf.setTitle("Niyam AI Regulatory Change Report")
+    pdf.setAuthor("Niyam AI Regulatory Intelligence")
     source_versions = report.get("source_versions", {})
     def write(text: str, *, font: str = "Helvetica", size: int = 9, indent: int = 44, gap: int = 13):
         nonlocal y
@@ -639,7 +639,7 @@ def _report_pdf_bytes(analysis_id: int, report: dict) -> bytes:
             pdf.drawString(indent, y, line)
             y -= gap
 
-    write("NIAM AI | REGULATORY CHANGE IMPACT REPORT", font="Helvetica-Bold", size=14, gap=22)
+    write("NIYAM AI | REGULATORY CHANGE IMPACT REPORT", font="Helvetica-Bold", size=14, gap=22)
     write(f"Report #{analysis_id} · Generated {datetime.now(timezone.utc).isoformat()}")
     write(f"Profile: {report.get('profile', {}).get('name', 'Unknown')} · {report.get('profile', {}).get('industry', '')}")
     write(f"Previous: {report['previous_document']}", font="Helvetica-Bold")
@@ -692,4 +692,4 @@ def report_download(analysis_id: int, db: Session = Depends(get_db)):
         raise HTTPException(404, "Analysis not found")
     report = json.loads(row.result_json)
     path = _ensure_report_pdf(db, analysis_id, report)
-    return StreamingResponse(open(path, "rb"), media_type="application/pdf", headers={"Content-Disposition": f'attachment; filename="niam-report-{analysis_id}.pdf"'})
+    return StreamingResponse(open(path, "rb"), media_type="application/pdf", headers={"Content-Disposition": f'attachment; filename="niyam-report-{analysis_id}.pdf"'})

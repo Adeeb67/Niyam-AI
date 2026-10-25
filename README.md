@@ -1,4 +1,4 @@
-# Niam AI Regulatory Change Intelligence
+# Niyam AI Regulatory Change Intelligence
 
 An initial full-stack implementation for Indian SME regulatory document ingestion, version history, PDF text comparison, profile context, action tracking, and evidence-oriented reports, with React/Vite frontend and FastAPI backend.
 

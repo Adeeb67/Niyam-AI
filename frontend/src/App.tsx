@@ -113,8 +113,8 @@ export default function App() {
 
   return <div className="app-shell">
     <aside className="sidebar">
-      <div className="brand"><div className="brand-mark"><Landmark size={19} /></div><div><strong>niam<span>ai</span></strong><small>REGULATORY INTELLIGENCE</small></div></div>
-      <div className="workspace-select"><span className="workspace-avatar">N</span><span className="workspace-copy"><strong>Niam workspace</strong><small>Business plan</small></span><ChevronDown size={15} /></div>
+      <div className="brand"><div className="brand-mark"><Landmark size={19} /></div><div><strong>niyam<span>ai</span></strong><small>REGULATORY INTELLIGENCE</small></div></div>
+      <div className="workspace-select"><span className="workspace-avatar">N</span><span className="workspace-copy"><strong>Niyam workspace</strong><small>Business plan</small></span><ChevronDown size={15} /></div>
       {['WORKSPACE', 'MANAGE'].map(group => <div className="nav-group" key={group}><div className="nav-label">{group}</div>{nav.filter(item => item.group === group).map(item => <button key={item.name} aria-label={item.name} title={item.name} onClick={() => { setPage(item.name); setReportId(null) }} className={`nav-item ${page === item.name ? 'selected' : ''}`}><item.icon size={17} strokeWidth={1.8} /><span>{item.name}</span>{item.name === 'Action center' && actions.filter(action => action.status !== 'Completed').length > 0 && <b className="nav-count">{actions.filter(action => action.status !== 'Completed').length}</b>}</button>)}</div>)}
       <div className="sidebar-spacer" />
       <div className="sidebar-sync"><span className={`sync-dot ${sync?.running ? 'pulse' : ''}`} /><div><strong>{sync?.running ? 'Sync in progress' : 'Source monitoring'}</strong><small>{sync?.enabled ? `Every ${sync.interval_minutes} minutes` : 'Scheduled sync paused'}</small></div><button title="Open source settings" onClick={() => setPage('Sources')}><SlidersHorizontal size={15} /></button></div>
@@ -122,7 +122,7 @@ export default function App() {
       <button className="user-row" onClick={logout}><div className="user-avatar">{user?.name.slice(0,2).toUpperCase()}</div><div><strong>{user?.name || 'Account'}</strong><small>{user?.email || ''} · Sign out</small></div><ChevronDown size={15} /></button>
     </aside>
     <main className="main-panel">
-      <header className="topbar"><div className="breadcrumb">Niam workspace <span>/</span> <b>{page}</b></div><div className="top-actions"><span className="today"><Clock3 size={14} /> {new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span><button className="icon-button" title="Notifications" onClick={() => setNotice('No new notifications. Sync results and failed document alerts appear here.')}><Bell size={17} /></button><div className="top-avatar">AK</div></div></header>
+      <header className="topbar"><div className="breadcrumb">Niyam workspace <span>/</span> <b>{page}</b></div><div className="top-actions"><span className="today"><Clock3 size={14} /> {new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span><button className="icon-button" title="Notifications" onClick={() => setNotice('No new notifications. Sync results and failed document alerts appear here.')}><Bell size={17} /></button><div className="top-avatar">AK</div></div></header>
       <div className="content-wrap"><div className="page-heading"><div><div className="eyebrow">REGULATORY INTELLIGENCE</div><h1>{reportId ? 'Evidence-backed analysis' : titles[page]}{page === 'Overview' && <span className="heading-period">, team</span>}</h1><p>{reportId ? 'Source clauses, business scope, and next steps.' : subtitles[page]}</p></div>{page === 'Overview' && <button className="button primary" onClick={() => setPage('Compare')}><Plus size={16} /> New analysis</button>}</div>
         {notice && <div className="notice"><span>{notice}</span><button onClick={() => setNotice('')}><X size={16} /></button></div>}
         {(docsQuery.isError || profilesQuery.isError || analysesQuery.isError || syncQuery.isError || metricsQuery.isError) && <div className="error-banner"><ShieldCheck size={17} /><span>API unavailable. Start the FastAPI service to load live workspace data.</span><a href={`${API}/docs`} target="_blank" rel="noreferrer">API status</a></div>}
@@ -135,7 +135,7 @@ export default function App() {
           {page === 'Action center' && <ActionCenter actions={actions} profiles={profiles} docs={docs} refresh={refresh} />}
           {page === 'Reports' && <Reports onOpen={setReportId} />}
         </>}
-        <footer className="footer"><span>NIAM AI <i>•</i> REGULATORY CHANGE INTELLIGENCE</span><span>Decision support, not legal advice</span></footer>
+        <footer className="footer"><span>NIYAM AI <i>•</i> REGULATORY CHANGE INTELLIGENCE</span><span>Decision support, not legal advice</span></footer>
       </div>
     </main>
   </div>
