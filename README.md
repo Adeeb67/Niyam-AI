@@ -157,6 +157,10 @@ Set `SYNC_ENABLED=false` on the API when the worker owns scheduling, and configu
 - **No legal applicability result:** the application conservatively requests verification; it does not equate keyword overlap with legal applicability.
 - **Frontend API unavailable:** set `VITE_API_BASE_URL` at build time and allow the frontend origin in backend `CORS_ORIGINS`.
 
+## Hackathon project report
+
+See [PROJECT_REPORT.md](PROJECT_REPORT.md) for the project overview, architecture, implemented features, verification results, limitations, and final submission checklist. Team details and sanitized product screenshots still need to be added.
+
 ## Publish this project to GitHub
 
 The repository intentionally excludes `.env` files, the SQLite database and uploaded data, Python virtual environments, installed Node dependencies, and generated build output. Commit `.env.example` only; it contains placeholders. Do not force-add ignored files.
